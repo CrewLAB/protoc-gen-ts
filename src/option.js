@@ -1,0 +1,37 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.parse = void 0;
+function parse(raw) {
+    if (!raw) {
+        raw = "";
+    }
+    const options = {
+        unary_rpc_promise: false,
+        grpc_package: "@grpc/grpc-js",
+        no_namespace: false,
+        json_names: false,
+        explicit_override: false,
+    };
+    for (const raw_option of raw.split(",")) {
+        let [k, v] = raw_option.split("=", 2);
+        switch (k) {
+            case 'unary_rpc_promise':
+                options[k] = v != "false";
+                break;
+            case 'grpc_package':
+                options[k] = v;
+                break;
+            case 'no_namespace':
+                options[k] = v != "false";
+                break;
+            case 'json_names':
+                options[k] = v != "false";
+                break;
+            case 'explicit_override':
+                options[k] = v != "false";
+                break;
+        }
+    }
+    return options;
+}
+exports.parse = parse;
